@@ -1,0 +1,30 @@
+<%- include('partials/header'); -%>
+<div class="container form-control form-signin">
+  <h1 class="text-primary">CONTACT</h1>
+  <p><strong class="text-primary">Email</strong><a href="mailto:andreeasarb96@yahoo.com">andreeasarb96@yahoo.com</a></p>
+  <form action="/contact" method="POST">
+    <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label text-primary">Nume</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" name="nume" placeholder="Nume">
+  </div>
+  <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label text-primary">Prenume</label>
+  <input type="text" class="form-control" id="exampleFormControlInput1" name="prenume" placeholder="Prenume">
+</div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label text-primary">Adresa de email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="phone"class="form-label text-primary" >Telefon</label>
+  <input type="tel" class="form-control" id="phone" name="telefon" pattern="[0-9]{10}" placeholder="07XXXXXXXX" >
+  </div>
+  <div class="mb-3">
+<label for="mesaj"class="form-label text-primary" >Mesaj</label>
+<textarea class="form-control" id="mesaj" name="mesaj" aria-label="With textarea"></textarea>
+</div>
+  <button type="submit" class="btn btn-primary">Trimite</button>
+</form>
+</div>
+
+  <%- include('partials/footer'); -%>

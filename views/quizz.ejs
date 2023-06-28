@@ -1,0 +1,20 @@
+<%- include('partials/header'); -%>
+<% for(let i=0; i<26; i++) { %>
+<div class="middle-container">
+  <div class="card" style="width: 18rem;">
+<img src="..." class="card-img-top" alt="...">
+<div class="card-body">
+  <h5 class="card-title">Intrebarea <%= i+1 %></h5>
+  <p class="card-text"><%= Quizz[i].intrebare %></p>
+  <img src="<%= Quizz[i].imagine %>">
+</div>
+<div class="card-body">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-primary"><%= Quizz[i].raspuns1 %></button>
+    <button type="button" class="btn btn-primary"><%= Quizz[i].raspuns2 %></button>
+    <button type="button" class="btn btn-primary"><%= Quizz[i].raspuns3 %></button>
+    <button type="button" class="btn btn-primary">Intrebarea urmatoare</button>
+  </div>
+</div>
+<% } %>
+<%- include('partials/footer'); -%>

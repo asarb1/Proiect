@@ -1,0 +1,43 @@
+<%- include('partials/header'); -%>
+<div id="myCarousel" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active c-item">
+      <img src="https://i.pinimg.com/originals/81/5d/3c/815d3c76d14557c2200d483b09ee7347.png" class="d-block w-100 c-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Chestionare</h5>
+        <p>Toate intrebarile oficiale DRPCIV pentru toate categoriile de vehicule</p>
+        <a class="btn btn-primary" href="/quizztype" role="button">START</a>
+      </div>
+    </div>
+    <div class="carousel-item c-item">
+      <img src="https://cdn.romania-insider.com/sites/default/files/styles/article_large_image/public/featured_images/traffic-police.jpg" class="d-block w-100 c-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Legislatie</h5>
+        <p>Toata legislatia este structurata pe capitole astfel incat sa fie cat mai usor de parcurs</p>
+        <a class="btn btn-primary" href="/law" role="button">START</a>
+      </div>
+    </div>
+    <div class="carousel-item c-item">
+      <img src="https://www.southernliving.com/thmb/9a4UziwqXc10GZ60xhSu9Azea0g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/main-road-c277f4f24f014138a683e181f32e5da0.jpg" class="d-block w-100 c-img" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>Indicatoare</h5>
+        <p>Indicatoare si marcaje rutiere explicate</p>
+        <a class="btn btn-primary" href="/roadsigns" role="button">START</a>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+  <%- include('partials/footer'); -%>

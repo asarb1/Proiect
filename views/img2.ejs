@@ -1,0 +1,35 @@
+<%- include('partials/header'); -%>
+<div class="container">
+  <div id="carousel-indicatoare" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="card text-center h-100">
+          <img class="card-img-top c-item" src="<%= RoadSign[0].imagine %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%= RoadSign[0].titlu %></h5>
+            <p class="card-text"><%= RoadSign[0].explicatie %></p>
+          </div>
+        </div>
+      </div>
+        <% for(let i=1; i<RoadSign.length; i++) { %>
+          <div class="carousel-item">
+        <div class="card text-center h-100">
+          <img class="card-img-top c-item" src="<%= RoadSign[i].imagine %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title"><%= RoadSign[i].titlu %></h5>
+            <p class="card-text"><%= RoadSign[i].explicatie %></p>
+          </div>
+        </div>
+        </div>
+        <% } %>
+    <button class="carousel-control-prev" type="button" data-bs-target="#ccarousel-indicatoare" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel-indicatoare" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+<%- include('partials/footer'); -%>

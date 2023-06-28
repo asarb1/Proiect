@@ -1,0 +1,179 @@
+.top-container{
+  position: relative;
+}
+.middle-container{
+}
+.bottom-container{
+}
+.c-item{
+height: 480px;
+}
+.c-img{
+height: 100%;
+object-fit: cover;
+filter: brightness(0.6);
+}
+body {
+  background-color: #001B2E
+}
+#imagine {
+  width: 300px;
+  height: 300px;
+}
+.card {
+  background-color: #001B2E
+}
+.capitole {
+  background-color: #EBEBEB
+}
+.carousel-control-prev-icon{
+  background-color: blue;
+}
+.carousel-control-next-icon{
+  background-color: blue;
+}
+h1 {
+  color: #EBEBEB;
+}
+h2 {
+  color: #EBEBEB;
+}
+h3 {
+  color: #EBEBEB;
+}
+h4 {
+  color: #EBEBEB;
+}
+p {
+  color: #EBEBEB;
+}
+.card-title{
+  color: #EBEBEB;
+}
+section {
+  display: -webkit-flex;
+  display: flex;
+}
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #001B2E
+  padding: 10px;
+  width: auto
+}
+@media (max-width: 600px) {
+  section {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+iframe {
+  width: 1000px;
+  height: 838px;
+}
+.start-screen{
+  text-align: center;
+}
+.display-container{
+  width: 90%;
+  max-width: 600px;
+  margin: 100px auto 0;
+  padding: 30px;
+  background-color: #4B4E6D;
+}
+.score-container{
+  width: 90%;
+  max-width: 600px;
+  margin: 0px auto 0;
+  padding: 30px;
+  background-color: #4B4E6D;
+}
+.app {
+  width: 90%;
+  max-width: 600px;
+  margin: 25px auto 0;
+  padding: 30px;
+  background-color: #4B4E6D;
+}
+.app h1{
+  font-size: 25px;
+  font-weight: 600;
+  border-bottom: 1px solid;
+  padding-bottom: 30px;
+}
+.quiz{
+  padding: 20px 0;
+}
+.quiz h2{
+  font-size: 18px;
+  font-weight: 600;
+}
+.answers {
+  color: #EBEBEB;
+  align-items: flex-start;
+}
+.answer-buttons{
+  text-align: center;
+  padding: 10px;
+}
+#next-btn{
+  font-weight: 500;
+  width: 150px;
+  border: 0;
+  padding: 10px;
+  margin: 20px auto 0;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+}
+.answers {
+  text-align: left;
+}
+.number-of-questions {
+  color: #EBEBEB;
+}
+.contorizare-raspunsuri{
+  color: #EBEBEB;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  color: #EBEBEB;
+  margin: 100px auto 0;
+  border-radius: 10px;
+  padding: 30px;
+  background-color: #4B4E6D;
+}
+
+.hide {
+  display: none;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.login-card-google{
+  background-color: #FE5F55;
+}
+.login-card-facebook{
+  background-color: #4062BB;
+}
+.login-card{
+  background-color: #00A7E1;
+}
+.h1-home{
+  text-align: center;
+}

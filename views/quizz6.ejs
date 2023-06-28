@@ -1,0 +1,312 @@
+<%- include('partials/header'); -%>
+<script >
+  var correct_answer = 0
+  var wrong_answer = 0
+</script>
+<script>
+  const quizz_copy_obj = []
+  const quizz_unanswered = []
+  const total_questions = 15;
+</script>
+<% var id=0 %>
+<% var total_questions=15 %>
+<% while(id < total_questions){ %>
+<script>
+  var current_q = 0;
+  var id_unanswered=0;
+
+  quizz_copy_obj.push({q:'<%=Quizz[id].intrebare%>',
+  answer1:'<%=Quizz[id].raspuns1%>',
+  answer2:'<%=Quizz[id].raspuns2%>',
+  answer3:'<%=Quizz[id].raspuns3%>',
+  answer1_correct:'<%=Quizz[id].raspunscorect1%>',
+  answer2_correct:'<%=Quizz[id].raspunscorect2%>',
+  answer3_correct:'<%=Quizz[id].raspunscorect3%>',
+  answer1_sel: false,
+  answer2_sel: false,
+  answer3_sel: false,
+  answered_question: false
+  });
+
+  function startCountDownTimer(){
+    const endTime = new Date(Date.now() + 30 * 60 * 1000);
+    let timerInterval;
+    if (!timerInterval)
+    {
+      timerInterval = setInterval(function() {
+      const timer = document.getElementById("countDownTimer");
+      let elapsedtime = new Date(endTime- Date.now());
+      timer.innerText =(elapsedtime.getMinutes()+':'+elapsedtime.getSeconds());
+      if ((elapsedtime.getMinutes()==0)&&(elapsedtime.getSeconds()==0))
+      {
+        submitResult();
+      }
+    },1000);
+	};
+  };
+  startCountDownTimer();
+</script>
+<% id++; %>
+<% } %>
+<script>
+  for (id_unanswered = 0; id_unanswered < total_questions; id_unanswered++) {
+    quizz_unanswered[id_unanswered] = id_unanswered;
+  }
+  id_unanswered=0;
+</script>
+<script type="text/javascript">
+  function create_question_page(id){
+    const intrebari_ramase = document.getElementById("ir");
+    intrebari_ramase.innerText = quizz_unanswered.length;
+    const question = document.getElementById("question");
+    question.innerText = (id + 1) + "." +quizz_copy_obj[id].q;
+    const answer1 = document.getElementById("raspuns1");
+    const answer2 = document.getElementById("raspuns2");
+    const answer3 = document.getElementById("raspuns3");
+    answer1.innerText = quizz_copy_obj[id].answer1;
+    answer2.innerText = quizz_copy_obj[id].answer2;
+    answer3.innerText = quizz_copy_obj[id].answer3;
+  }
+
+  function create_score_page() {
+    var user_score = document.getElementById("user-score");
+    if(wrong_answer < 5) {
+      user_score.innerText = "Felicitari! Ati fost declarat ADMIS. Ati facut " + correct_answer + "puncte."
+    }
+    else {
+      user_score.innerText = "Ne pare rau! Ati fost declarat RESPINS. Ati facut " + correct_answer + "puncte."
+    }
+  }
+
+  function reset_answer(){
+    document.getElementById("raspuns1").style.backgroundColor = "transparent";
+    document.getElementById("raspuns2").style.backgroundColor = "transparent";
+    document.getElementById("raspuns3").style.backgroundColor = "transparent";
+    quizz_copy_obj[current_q].answer1_sel = false;
+    quizz_copy_obj[current_q].answer2_sel = false;
+    quizz_copy_obj[current_q].answer3_sel = false;
+    quizz_copy_obj[current_q].answered_question == false;
+  }
+
+  function remove_unanswered_if_exists(question_id){
+    var index_unanswered = quizz_unanswered.indexOf(question_id);
+    if(index_unanswered >=0)
+    {
+      const x = quizz_unanswered.splice(index_unanswered, 1);
+    }
+  }
+  function get_next_unanswered(current_question){
+    var ret_value = -1;
+    if (quizz_unanswered.length>0)
+    {
+      if(quizz_unanswered[id_unanswered] == current_question)
+      {
+        id_unanswered ++;
+      }
+      if (quizz_unanswered[id_unanswered]==undefined){
+        id_unanswered = 0;
+      }
+      ret_value = quizz_unanswered[id_unanswered];
+    }
+    return ret_value;
+  }
+  function send_answer(){
+    if( quizz_copy_obj[current_q].answer1_sel == true || quizz_copy_obj[current_q].answer2_sel == true || quizz_copy_obj[current_q].answer3_sel == true) {
+      const total_correct_answer = document.getElementById("ras_cor");
+      const total_wrong_answer = document.getElementById("ras_gre");
+      //intai se evalueaza raspunsul apoi se trece la urmatoarea intrebare
+        if (evaluate_answer()==true){
+          correct_answer++;
+        }
+        else{
+          wrong_answer++;
+        }
+        if (wrong_answer >=5 )
+        {
+          submitResult();
+        }
+        total_correct_answer.innerText = correct_answer;
+        total_wrong_answer.innerText = wrong_answer;
+        //set question as answered
+        quizz_copy_obj[current_q].answered_question = true;
+        //remove question from unanswered array if exist there
+        remove_unanswered_if_exists(current_q);
+        next_question = get_next_unanswered(current_q);
+        if(next_question>=0)
+        {
+          current_q = next_question;
+        }
+        else
+        {
+          //end of questions => display quizz result
+          create_score_page();
+          submitResult();
+          
+          console.log("no more questions to answer Result is:"+correct_answer+'/'+total_questions)
+        }
+        create_question_page(current_q);
+        reset_answer();
+      }
+    else {
+      alert("Trebuie sa selectati cel putin o varianta de raspuns!");
+    }
+  }
+  function submitResult(){
+    form_post = document.getElementById("result_form");
+    data_correct_answer = document.getElementById("data_correct_answer");
+    data_correct_answer.value = correct_answer;
+    data_wrong_answer = document.getElementById("data_wrong_answer");
+    data_wrong_answer.value = wrong_answer;
+    data_time_answer = document.getElementById("data_time_answer");
+    const timer = document.getElementById("countDownTimer");
+    data_time_answer.value = timer.innerText;
+    form_post.submit();
+}
+  function answer_later(){
+    reset_answer();
+    next_question = get_next_unanswered(current_q);
+    if(next_question>=0)
+    {
+      current_q = next_question;
+    }
+    else
+    {
+      //end of questions => display quizz result
+      create_score_page();
+      console.log("no more questions to answer Result is:"+correct_answer+'/'+total_questions)
+    }
+    create_question_page(current_q);
+  }
+
+  function evaluate_answer(){
+    var answer1_correct = false;
+    var answer2_correct = false;
+    var answer3_correct = false;
+    if (quizz_copy_obj[current_q].answer1== quizz_copy_obj[current_q].answer1_correct)
+    {
+      if(quizz_copy_obj[current_q].answer1_sel==true)
+      {
+        answer1_correct = true;
+      }
+    }
+    else if(quizz_copy_obj[current_q].answer1_sel==false)
+    {
+      answer1_correct = true;
+    }
+
+    if (quizz_copy_obj[current_q].answer2== quizz_copy_obj[current_q].answer2_correct)
+    {
+      if(quizz_copy_obj[current_q].answer2_sel==true)
+      {
+        answer2_correct = true;
+      }
+    }
+    else if(quizz_copy_obj[current_q].answer2_sel==false)
+    {
+      answer2_correct = true;
+    }
+
+    if (quizz_copy_obj[current_q].answer3== quizz_copy_obj[current_q].answer3_correct)
+    {
+      if(quizz_copy_obj[current_q].answer3_sel==true)
+      {
+        answer3_correct = true;
+      }
+    }
+    else if(quizz_copy_obj[current_q].answer3_sel==false)
+    {
+      answer3_correct = true;
+    }
+    if ((answer1_correct == true)&&(answer1_correct == true)&&(answer1_correct == true))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+
+  }
+
+</script>
+
+
+<div class="display-container">
+  <div class="header">
+    <div class="number-of-questions">
+      <span class="intrebari_initiale">15 intrebari initiale</span>
+      <span class="intrebari_ramase"><span id="ir">15</span> intrebari ramase</span>
+    </div>
+    <div class="contorizare-raspunsuri">
+      <span class="raspuns-corect bg-success"><span id="ras_cor">0</span> raspunsuri corecte</span>
+      <span class="raspuns-gresit bg-danger"><span id="ras_gre">0</span> raspunsuri gresite</span>
+    </div>
+    <div class="timer-div">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch-fill" viewBox="0 0 16 16">
+  <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584.531.531 0 0 0 .013-.012l.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354a.717.717 0 0 0-.012.012A6.973 6.973 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1h-3zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0z"/>
+</svg>
+      <span class="time-left" id="countDownTimer"></span>
+    </div>
+  </div>
+
+<div id="container">
+  <div class="quiz">
+    <h1 id="question">1.<%=Quizz[0].intrebare%></h1>
+  </div>
+  <div class="answer-rows">
+
+    <p id="raspuns1"><%=Quizz[0].raspuns1%></p><br>
+    <p id="raspuns2"><%=Quizz[0].raspuns2%></p><br>
+    <p id="raspuns3"><%=Quizz[0].raspuns3%></p><br>
+
+  </div>
+  <div class="answer-buttons">
+    <button id="buton1" class="btn btn-primary">A</button>
+    <button id="buton2" class="btn btn-primary">B</button>
+    <button id="buton3" class="btn btn-primary">C</button>
+  </div>
+  <script>
+    //poti lasa si cu functiile de select answer ?
+    document.getElementById("buton1").addEventListener("click", function() {
+      quizz_copy_obj[current_q].answer1_sel = true;
+    document.getElementById("raspuns1").style.backgroundColor = "blue";
+});
+
+    document.getElementById("buton2").addEventListener("click", function() {
+    document.getElementById("raspuns2").style.backgroundColor = "blue";
+    quizz_copy_obj[current_q].answer2_sel = true;
+});
+
+    document.getElementById("buton3").addEventListener("click", function() {
+    document.getElementById("raspuns3").style.backgroundColor = "blue";
+    quizz_copy_obj[current_q].answer3_sel = true;
+});
+  </script>
+  <div class="final-answer">
+      <button onClick="answer_later()" id="yellow-button" class="btn btn-warning"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+  </svg>Raspunde mai tarziu</button>
+      <button onClick="reset_answer()" id="red-button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+  <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+  </svg>Sterge raspunsul</button>
+      <button onClick="send_answer()" id="green-button" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </svg>Trimit raspunsul</button>
+  <form action="/result" method="POST" id="result_form">
+    <input type="hidden" name="correct" value="0" id="data_correct_answer"></input>
+    <input type="hidden" name="wrong" value="0" id="data_wrong_answer"></input>
+    <input type="hidden" name="time" value="0" id="data_time_answer"></input>
+  </form>
+  </div>
+  </div>
+<!-- </div> -->
+
+</div>
+<div class="score-container hide">
+<div id="user-score">
+  Demo Score
+</div>
+<button id="restart">Restart</button>
+</div>
+<%- include('partials/footer'); -%>
