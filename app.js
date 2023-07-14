@@ -158,6 +158,36 @@ app.post("/result", function(req, res){
   res.render("result", {result: req.body});
 });
 
+app.post("/result1", function(req, res){
+  console.log(req.body);
+  res.render("result1", {result: req.body});
+});
+
+app.post("/result2", function(req, res){
+  console.log(req.body);
+  res.render("result2", {result: req.body});
+});
+
+app.post("/result3", function(req, res){
+  console.log(req.body);
+  res.render("result3", {result: req.body});
+});
+
+app.post("/result4", function(req, res){
+  console.log(req.body);
+  res.render("result4", {result: req.body});
+});
+
+app.post("/result5", function(req, res){
+  console.log(req.body);
+  res.render("result5", {result: req.body});
+});
+
+app.post("/result6", function(req, res){
+  console.log(req.body);
+  res.render("result6", {result: req.body});
+});
+
 app.get("/quizz1", function(req, res){
   Quizz.find({categorie: "Categoria A"}, function(err, foundQuizz){
     res.render("quizz1", {Quizz: foundQuizz});
